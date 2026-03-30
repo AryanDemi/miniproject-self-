@@ -6,6 +6,7 @@ import multer from 'multer';
 import FormData from 'form-data';
 import axios from 'axios';
 import fs from 'fs';
+import authRoutes from './routes/auth';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/v1/auth', authRoutes);
 
 // Configure Multer for local memory buffering or temp file storage
 const upload = multer({ dest: 'uploads/' });

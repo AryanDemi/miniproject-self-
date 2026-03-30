@@ -31,9 +31,10 @@ model PatientProfile {
   user      User     @relation(fields: [userId], references: [id])
   firstName String
   lastName  String
-  dob       DateTime
-  gender    String
-  phone     String?
+  dob          DateTime
+  gender       String
+  phone        String?
+  medicalReports MedicalReport[]
 }
 
 model DoctorProfile {
@@ -46,3 +47,13 @@ model DoctorProfile {
   licenseNumber  String
   phone         String?
 }
+
+model MedicalReport {
+  id               String         @id @default(uuid())
+  patientId        String
+  patient          PatientProfile @relation(fields: [patientId], references: [id])
+  originalText     String?        @db.Text
+  simplifiedResult String         @db.Text
+  uploadedAt       DateTime       @default(now())
+}
+
